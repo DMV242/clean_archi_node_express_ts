@@ -1,0 +1,27 @@
+{
+  "name": "clean_archi_node_express_ts",
+  "version": "1.0.0",
+  "description": "clean archi avec typescript",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tsc": "tsc --outDir ./dist && node ./dist/index.js"
+  },
+  "author": "David MVOULA",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0",
+    "@types/validator": "^13.12.2",
+    "prisma": "^5.22.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  }
+}
