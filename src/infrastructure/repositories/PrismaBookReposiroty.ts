@@ -19,10 +19,10 @@ export class PrismaBookRepository implements IBookRepository {
         return createdBook ;
     }
 
-    async retrieveOne(id: String): Promise<Book> {
+    async retrieveOne(id: string): Promise<Book> {
         const book = await this.prisma.book.findUnique({
             where: {
-                id : String(id)
+                id : id
             }
         });
         if (!book) {
@@ -30,10 +30,10 @@ export class PrismaBookRepository implements IBookRepository {
         }
         return book;
     }
-    async deleteOne(id: String): Promise<void> {
+    async deleteOne(id: string): Promise<void> {
         await this.prisma.book.delete({
             where: {
-                id: String(id)
+                id: id
             }
         });
     }
