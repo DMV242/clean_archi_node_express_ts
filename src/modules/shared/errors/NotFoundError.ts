@@ -1,5 +1,5 @@
-class NotFoundError extends Error {
-  static readonly code = 404;
+export class NotFoundError extends Error {
+  readonly statusCode = 404;
 
   constructor(message: string) {
     super(message);

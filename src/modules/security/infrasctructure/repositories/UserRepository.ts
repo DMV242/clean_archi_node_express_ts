@@ -1,5 +1,6 @@
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
 import { User, UserProps } from "../../domain/entities/User";
+import { NotFoundError } from "../../../shared/errors/NotFoundError";
 import { PrismaClient } from "@prisma/client";
 
 export class UserRepository implements IUserRepository {

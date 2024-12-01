@@ -1,5 +1,5 @@
-class InvalidCredentialsError extends Error {
-  static readonly code = 401;
+export class InvalidCredentialsError extends Error {
+  static readonly statusCode = 401;
 
   constructor(message: string) {
     super(message);

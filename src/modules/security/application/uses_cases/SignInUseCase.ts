@@ -1,6 +1,7 @@
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
 import { SignInDto } from "../dtos/SignInDtoRequest";
 import { SignInResponseDto } from "../dtos/SignInResponseDto";
+import { InvalidCredentialsError } from "../errors/InvalidCredentialsError";
 
 export class SignInUseCase {
   private userRepository: IUserRepository;
