@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import { SignUpUseCase } from "../../../application/uses_cases/SignUpUseCase";
 import { SignInUseCase } from "../../../application/uses_cases/SignInUseCase";
 import { InvalidCredentialsError } from "../../../application/errors/InvalidCredentialsError";
-import { NotFoundError } from "../../../../shared/errors/NotFoundError";
+import { NotFoundError } from "../../../../../shared/errors/NotFoundError";
+import { UserAlreadyExistsError } from "../../../application/errors/UserAlreadyExistsError";
 
 export class SecurityController {
   private readonly SignUpUseCase: SignUpUseCase;
@@ -25,6 +26,10 @@ export class SecurityController {
           .json({ error: error.message });
       } else if (error instanceof NotFoundError) {
         res.status(error.statusCode).json({ error: error.message });
+      } else if (error instanceof UserAlreadyExistsError) {
+        res
+          .status(UserAlreadyExistsError.statusCode)
+          .json({ error: error.message });
       } else {
         res.status(500).json({ error: error.message });
       }

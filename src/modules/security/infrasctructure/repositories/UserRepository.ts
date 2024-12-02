@@ -1,7 +1,7 @@
 import { IUserRepository } from "../../domain/repositories/IUserRepository";
 import { User, UserProps } from "../../domain/entities/User";
-import { NotFoundError } from "../../../shared/errors/NotFoundError";
 import { PrismaClient } from "@prisma/client";
+import { NotFoundError } from "../../../../shared/errors/NotFoundError";
 
 export class UserRepository implements IUserRepository {
   private prismaClient = new PrismaClient();
@@ -18,15 +18,13 @@ export class UserRepository implements IUserRepository {
     });
   }
 
-  async retrieveOne(email: string): Promise<UserProps> {
+  async retrieveOne(email: string): Promise<UserProps | null> {
     const user = await this.prismaClient.user.findUnique({
       where: {
         email: email,
       },
     });
-    if (!user) {
-      throw new NotFoundError(`user with email :${email} not found`);
-    }
+
     return user;
   }
 }

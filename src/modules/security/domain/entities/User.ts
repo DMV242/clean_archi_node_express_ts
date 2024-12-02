@@ -21,4 +21,8 @@ export class User {
       lastName: this.lastName,
     };
   }
+
+  setPassword(password: string) {
+    this.password = password;
+  }
 }

@@ -14,6 +14,8 @@ import { SecurityController } from "./modules/security/infrasctructure/Webserver
 import { SignUpUseCase } from "./modules/security/application/uses_cases/SignUpUseCase";
 import { UserRepository } from "./modules/security/infrasctructure/repositories/UserRepository";
 import { SignInUseCase } from "./modules/security/application/uses_cases/SignInUseCase";
+import { Argon2Encoder } from "./modules/security/infrasctructure/password_encoder/Argon2Encoder";
+import { JwtTokenEncoder } from "./modules/security/infrasctructure/token_encoder/JwtTokenEncoder";
 
 configDotenv();
 const app: Application = express();
@@ -34,9 +36,12 @@ const bookController = new BookController(
   updateOneBookUseCase
 );
 
+const argon2Encoder = new Argon2Encoder();
+const jwtTokenEncoder = new JwtTokenEncoder(process.env.JWT_SECRET!);
+
 const securityController = new SecurityController(
-  new SignUpUseCase(userRepository),
-  new SignInUseCase(userRepository)
+  new SignUpUseCase(userRepository, argon2Encoder, jwtTokenEncoder),
+  new SignInUseCase(userRepository, argon2Encoder, jwtTokenEncoder)
 );
 
 app.use("/api", bookRoutes(bookController));
