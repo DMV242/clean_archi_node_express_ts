@@ -42,30 +42,3 @@ export class IsAuthenticatedMiddleware {
     }
   }
 }
-
-// export async function isAuthenticated(
-//   req: Request,
-//   res: Response,
-//   next: NextFunction
-// ): Promise<any | Record<string, any>> {
-//   {
-//     try {
-//       const authHeaders = req.headers.authorization;
-//       const token = authHeaders && authHeaders.split(" ")[1];
-//       const jwtTokenEncoder = new JwtTokenEncoder(process.env.JWT_SECRET!);
-//       if (!token) {
-//         throw new UnauthorizedError("You are not authorized");
-//       }
-//       req.user = await jwtTokenEncoder.decode(token);
-//       if (!token) {
-//         throw new UnauthorizedError("You are not authorized");
-//       }
-//       next();
-//     } catch (error) {
-//       if (error instanceof UnauthorizedError) {
-//         return res.status(error.statusCode).json({ error: error.message });
-//       }
-//       return res.status(500).json({ error: "Server error" });
-//     }
-//   }
-// }
