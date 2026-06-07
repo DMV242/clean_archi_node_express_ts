@@ -1,22 +1,22 @@
-# 📚 Clean Architecture - Node.js Express TypeScript
+# Clean Architecture - Node.js Express TypeScript
 
 Un projet d'implémentation de **Clean Architecture** avec Node.js, Express et TypeScript. Ce projet démontre les principes fondamentaux de l'architecture logicielle propre avec une séparation claire des responsabilités et une modularité maximale.
 
 ---
 
-## 🎯 Objectif du Projet
+## Objectif du Projet
 
 Ce projet est une implémentation éducative des principes de **Clean Architecture** (proposée par Robert C. Martin). Il illustre comment structurer une application backend avec :
 
-- ✅ Séparation claire des couches (Domain → Application → Infrastructure)
-- ✅ Architecture modulaire et indépendante
-- ✅ Dépendances injectées et testables
-- ✅ Entités métier avec logique encapsulée
-- ✅ Patterns de conception (Repository, Use Case)
+- Séparation claire des couches (Domain → Application → Infrastructure)
+- Architecture modulaire et indépendante
+- Dépendances injectées et testables
+- Entités métier avec logique encapsulée
+- Patterns de conception (Repository, Use Case)
 
 ---
 
-## 🏗️ Architecture
+## Architecture
 
 ### Vue d'ensemble de la structure
 
@@ -24,13 +24,13 @@ Ce projet est une implémentation éducative des principes de **Clean Architectu
 src/
 ├── modules/                                  # Modules métier (Domain-Driven Design)
 │   ├── library/                              # Module Gestion de Bibliothèque
-│   │   ├── domain/                           # 🎯 Couche Métier (Business Logic)
+│   │   ├── domain/                           # Couche Métier (Business Logic)
 │   │   │   ├── entities/
 │   │   │   │   └── Book.ts                  # Entité domaine Book
 │   │   │   └── repositories/
 │   │   │       └── IBookRepository.ts       # Interface du repository
 │   │   │
-│   │   ├── application/                      # 🔧 Couche Application (Use Cases)
+│   │   ├── application/                      # Couche Application (Use Cases)
 │   │   │   ├── dtos/                        # Data Transfer Objects
 │   │   │   └── use_cases/
 │   │   │       ├── AddBookUseCase.ts
@@ -39,7 +39,7 @@ src/
 │   │   │       ├── UpdateOneBookUseCase.ts
 │   │   │       └── DeleteOneBookUseCase.ts
 │   │   │
-│   │   └── infrastructure/                   # 🔌 Couche Infrastructure
+│   │   └── infrastructure/                   # Couche Infrastructure
 │   │       ├── repositories/
 │   │       │   └── PrismaBookRepository.ts   # Implémentation Prisma
 │   │       └── webserver/
@@ -49,14 +49,14 @@ src/
 │   │               └── bookRoutes.ts
 │   │
 │   └── security/                             # Module Authentification
-│       ├── domain/                           # 🎯 Couche Métier
+│       ├── domain/                           # Couche Métier
 │       │   ├── entities/
 │       │   └── repositories/
-│       ├── application/                      # 🔧 Couche Application
+│       ├── application/                      # Couche Application
 │       │   └── use_cases/
 │       │       ├── SignUpUseCase.ts
 │       │       └── SignInUseCase.ts
-│       └── infrasctructure/                  # 🔌 Couche Infrastructure
+│       └── infrasctructure/                  # Couche Infrastructure
 │           ├── repositories/
 │           │   └── UserRepository.ts
 │           ├── password_encoder/
@@ -69,7 +69,7 @@ src/
 │               └── routes/
 │                   └── SecurityRoutes.ts
 │
-└── shared/                                   # 🛠️ Utilitaires Partagés
+└── shared/                                   # Utilitaires Partagés
     ├── errors/                               # Gestion des erreurs
     └── middlewares/                          # Middlewares globaux
 
@@ -80,9 +80,10 @@ prisma/
 
 ---
 
-## 📋 Les 3 Couches de Clean Architecture
+## Les 3 Couches de Clean Architecture
 
-### 🎯 Couche Domain (Métier)
+### Couche Domain (Métier)
+
 **Responsabilité :** Logique métier, règles d'affaires
 
 ```typescript
@@ -105,11 +106,13 @@ export class Book {
 }
 ```
 
+Caractéristiques :
 - Entités métier avec logique encapsulée
 - Interfaces de repository (contrats)
-- **Pas de dépendances externes**
+- Pas de dépendances externes
 
-### 🔧 Couche Application (Use Cases)
+### Couche Application (Use Cases)
+
 **Responsabilité :** Orchestrer la logique métier
 
 ```typescript
@@ -126,11 +129,13 @@ export class AddBookUseCase {
 }
 ```
 
+Caractéristiques :
 - Cas d'utilisation métier
 - Injection de dépendances
-- **Pas de logique métier supplémentaire**
+- Pas de logique métier supplémentaire
 
-### 🔌 Couche Infrastructure (Frameworks & Drivers)
+### Couche Infrastructure (Frameworks & Drivers)
+
 **Responsabilité :** Implémentations techniques
 
 ```typescript
@@ -150,15 +155,17 @@ export class BookController {
 }
 ```
 
+Caractéristiques :
 - Implémentations Prisma, Express
 - Controllers HTTP
 - Routes
 
 ---
 
-## 🗄️ Modèles de Données
+## Modèles de Données
 
 ### Book
+
 ```prisma
 model Book {
   id          String    @id @default(uuid())
@@ -172,11 +179,12 @@ model Book {
 ```
 
 ### User
+
 ```prisma
 model User {
   id        String    @id @default(uuid())
   email     String    @unique
-  password  String    (hasé avec Argon2)
+  password  String    # Hasé avec Argon2
   firstName String
   lastName  String
   createdAt DateTime  @default(now())
@@ -186,30 +194,30 @@ model User {
 
 ---
 
-## 🚀 API Endpoints
+## API Endpoints
 
-### 📚 Module Bibliothèque
-
-| Méthode | Endpoint | Description |
-|---------|----------|-------------|
-| **POST** | `/api/books` | Créer un nouveau livre |
-| **GET** | `/api/books/:id` | Récupérer un livre |
-| **GET** | `/api/books` | Récupérer tous les livres |
-| **PUT** | `/api/books/:id` | Mettre à jour un livre |
-| **DELETE** | `/api/books/:id` | Supprimer un livre |
-
-### 🔐 Module Authentification
+### Module Bibliothèque
 
 | Méthode | Endpoint | Description |
 |---------|----------|-------------|
-| **POST** | `/api/auth/signup` | Créer un compte utilisateur |
-| **POST** | `/api/auth/signin` | Se connecter |
+| POST | `/api/books` | Créer un nouveau livre |
+| GET | `/api/books/:id` | Récupérer un livre |
+| GET | `/api/books` | Récupérer tous les livres |
+| PUT | `/api/books/:id` | Mettre à jour un livre |
+| DELETE | `/api/books/:id` | Supprimer un livre |
+
+### Module Authentification
+
+| Méthode | Endpoint | Description |
+|---------|----------|-------------|
+| POST | `/api/auth/signup` | Créer un compte utilisateur |
+| POST | `/api/auth/signin` | Se connecter |
 
 ---
 
-## 🛠️ Stack Technique
+## Stack Technique
 
-### 📦 Dépendances Principales
+### Dépendances Principales
 
 ```json
 {
@@ -223,7 +231,7 @@ model User {
 }
 ```
 
-### 🛠️ Outils de Développement
+### Outils de Développement
 
 ```json
 {
@@ -236,21 +244,25 @@ model User {
 
 ---
 
-## ⚡ Installation et Configuration
+## Installation et Configuration
 
-### 1️⃣ Cloner le repository
+### 1. Cloner le repository
+
 ```bash
 git clone https://github.com/DMV242/clean_archi_node_express_ts.git
 cd clean_archi_node_express_ts
 ```
 
-### 2️⃣ Installer les dépendances
+### 2. Installer les dépendances
+
 ```bash
 npm install
 ```
 
-### 3️⃣ Configurer l'environnement
+### 3. Configurer l'environnement
+
 Créer un fichier `.env` à la racine :
+
 ```env
 # Port du serveur
 PORT=3000
@@ -262,14 +274,15 @@ JWT_SECRET=votre_cle_secrete_jwt_tres_longue_et_complexe
 DATABASE_URL="file:./dev.db"
 ```
 
-### 4️⃣ Initialiser la base de données
+### 4. Initialiser la base de données
+
 ```bash
 npx prisma migrate dev --name init
 ```
 
 ---
 
-## 🚀 Commandes Disponibles
+## Commandes Disponibles
 
 ```bash
 # Démarrage en mode développement avec rechargement automatique
@@ -287,23 +300,27 @@ npm test
 
 ---
 
-## 📖 Principes de Clean Architecture Appliqués
+## Principes de Clean Architecture Appliqués
 
-### 1. **Indépendance des Frameworks**
-- La logique métier ne dépend pas d'Express, Prisma ou JWT
-- Facile de changer de framework
+### 1. Indépendance des Frameworks
 
-### 2. **Testabilité**
+La logique métier ne dépend pas d'Express, Prisma ou JWT. Cela permet de changer facilement de framework.
+
+### 2. Testabilité
+
+Grâce à l'injection de dépendances, les tests deviennent simples :
+
 ```typescript
-// Facile à tester grâce à l'injection de dépendances
 const mockRepository = new MockBookRepository();
 const useCase = new AddBookUseCase(mockRepository);
 const result = await useCase.execute(testData);
 ```
 
-### 3. **Pattern Repository**
+### 3. Pattern Repository
+
+Interface de repository (contrat) :
+
 ```typescript
-// Interface de repository (contrat)
 interface IBookRepository {
   add(book: Book): Promise<BookProps>;
   retrieveOne(id: String): Promise<BookProps>;
@@ -318,9 +335,11 @@ class PrismaBookRepository implements IBookRepository {
 }
 ```
 
-### 4. **Entités Métier**
+### 4. Entités Métier
+
+Logique métier encapsulée :
+
 ```typescript
-// Logique métier encapsulée
 export class Book {
   constructor(title, author, genre, isAvailable = true) { }
   
@@ -330,9 +349,11 @@ export class Book {
 }
 ```
 
-### 5. **Use Cases**
+### 5. Use Cases
+
+Chaque opération métier correspond à un Use Case :
+
 ```typescript
-// Chaque opération métier = 1 Use Case
 export class AddBookUseCase {
   async execute(bookData: BookProps): Promise<BookProps> {
     const book = new Book(...);
@@ -341,9 +362,11 @@ export class AddBookUseCase {
 }
 ```
 
-### 6. **Injection de Dépendances**
+### 6. Injection de Dépendances
+
+Composition du root (src/index.ts) :
+
 ```typescript
-// src/index.ts - Composition de root
 const bookRepository = new PrismaBookRepository();
 const addBookUseCase = new AddBookUseCase(bookRepository);
 const bookController = new BookController(addBookUseCase, ...);
@@ -351,20 +374,20 @@ const bookController = new BookController(addBookUseCase, ...);
 
 ---
 
-## 🏆 Avantages de cette Architecture
+## Avantages de cette Architecture
 
 | Avantage | Description |
 |----------|-------------|
-| **Maintenabilité** | Code organisé et facile à comprendre |
-| **Testabilité** | Logique métier isolée et testable |
-| **Scalabilité** | Facile d'ajouter de nouveaux modules |
-| **Flexibilité** | Échange facile de dépendances |
-| **Indépendance** | Métier indépendant des frameworks |
-| **Réutilisabilité** | Use cases réutilisables |
+| Maintenabilité | Code organisé et facile à comprendre |
+| Testabilité | Logique métier isolée et testable |
+| Scalabilité | Facile d'ajouter de nouveaux modules |
+| Flexibilité | Échange facile de dépendances |
+| Indépendance | Métier indépendant des frameworks |
+| Réutilisabilité | Use cases réutilisables |
 
 ---
 
-## 📚 Structure d'un Module Complet
+## Structure d'un Module Complet
 
 Pour ajouter un nouveau module (ex: `User Management`), suivre ce template :
 
@@ -393,7 +416,7 @@ src/modules/user-management/
 
 ---
 
-## 🔗 Flux de Requête
+## Flux de Requête
 
 ```
 Client Request
@@ -417,25 +440,25 @@ Response ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ← ←
 
 ---
 
-## 🐛 Trouvé un bug ou une amélioration ?
+## Contribution
 
-N'hésitez pas à créer une issue ou une pull request ! 
+Trouvé un bug ou une amélioration ? N'hésitez pas à créer une issue ou une pull request !
 
 ---
 
-## 📝 Licence
+## Licence
 
 ISC
 
 ---
 
-## 👨‍💻 Auteur
+## Auteur
 
-**David MVOULA**
+David MVOULA
 
 ---
 
-## 🚀 Prochaines Étapes
+## Prochaines Étapes
 
 - [ ] Ajouter des tests unitaires (Jest)
 - [ ] Implémenter des tests d'intégration
@@ -448,14 +471,10 @@ ISC
 
 ---
 
-## 📖 Ressources d'apprentissage
+## Ressources d'apprentissage
 
 - [Clean Architecture - Robert C. Martin](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Domain-Driven Design](https://www.domainlanguage.com/ddd/)
 - [TypeScript Documentation](https://www.typescriptlang.org/docs/)
 - [Express.js Guide](https://expressjs.com/)
 - [Prisma Documentation](https://www.prisma.io/docs/)
-
----
-
-**Bon apprentissage ! 🎓**
